@@ -38,6 +38,7 @@
 			System.Windows.Forms.Label spreadsheetIdLabel;
 			System.Windows.Forms.ToolTip infoToolTip;
 			System.Windows.Forms.Label madeBylabel;
+			System.Windows.Forms.Label bannedChannelsLabel;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.minMessagesToSpamNumericUpDown = new System.Windows.Forms.NumericUpDown();
 			this.minMessagesToSpamLabel = new System.Windows.Forms.Label();
@@ -60,6 +61,8 @@
 			this.clearUserButton = new System.Windows.Forms.Button();
 			this.clearChannelButton = new System.Windows.Forms.Button();
 			this.creatorNameLinkLabel = new System.Windows.Forms.LinkLabel();
+			this.clearBannedChannelsButton = new System.Windows.Forms.Button();
+			this.bannedChannelsTextBox = new System.Windows.Forms.TextBox();
 			OptionsPanel = new System.Windows.Forms.Panel();
 			optionsLabel = new System.Windows.Forms.Label();
 			configLabel = new System.Windows.Forms.Label();
@@ -69,6 +72,7 @@
 			spreadsheetIdLabel = new System.Windows.Forms.Label();
 			infoToolTip = new System.Windows.Forms.ToolTip(this.components);
 			madeBylabel = new System.Windows.Forms.Label();
+			bannedChannelsLabel = new System.Windows.Forms.Label();
 			OptionsPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.minMessagesToSpamNumericUpDown)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.minTimeToSpamNumericUpDown)).BeginInit();
@@ -354,7 +358,7 @@
 			madeBylabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			madeBylabel.AutoSize = true;
 			madeBylabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			madeBylabel.Location = new System.Drawing.Point(93, 499);
+			madeBylabel.Location = new System.Drawing.Point(93, 538);
 			madeBylabel.Name = "madeBylabel";
 			madeBylabel.Size = new System.Drawing.Size(43, 12);
 			madeBylabel.TabIndex = 6;
@@ -394,6 +398,9 @@
 			this.userSettingsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.userSettingsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.userSettingsPanel.Controls.Add(this.clearBannedChannelsButton);
+			this.userSettingsPanel.Controls.Add(bannedChannelsLabel);
+			this.userSettingsPanel.Controls.Add(this.bannedChannelsTextBox);
 			this.userSettingsPanel.Controls.Add(this.clearSpreadsheetIdButton);
 			this.userSettingsPanel.Controls.Add(this.clearOAuthButton);
 			this.userSettingsPanel.Controls.Add(this.clearUserButton);
@@ -409,7 +416,7 @@
 			this.userSettingsPanel.Controls.Add(this.oAuthLinkLabel);
 			this.userSettingsPanel.Location = new System.Drawing.Point(12, 290);
 			this.userSettingsPanel.Name = "userSettingsPanel";
-			this.userSettingsPanel.Size = new System.Drawing.Size(255, 204);
+			this.userSettingsPanel.Size = new System.Drawing.Size(255, 245);
 			this.userSettingsPanel.TabIndex = 4;
 			// 
 			// clearSpreadsheetIdButton
@@ -471,7 +478,7 @@
 			this.creatorNameLinkLabel.AutoSize = true;
 			this.creatorNameLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.creatorNameLinkLabel.LinkColor = System.Drawing.Color.LimeGreen;
-			this.creatorNameLinkLabel.Location = new System.Drawing.Point(131, 499);
+			this.creatorNameLinkLabel.Location = new System.Drawing.Point(131, 538);
 			this.creatorNameLinkLabel.Name = "creatorNameLinkLabel";
 			this.creatorNameLinkLabel.Size = new System.Drawing.Size(60, 12);
 			this.creatorNameLinkLabel.TabIndex = 7;
@@ -479,11 +486,48 @@
 			this.creatorNameLinkLabel.Text = "Devilquest";
 			this.creatorNameLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.CreatorNameLinkLabel_LinkClicked);
 			// 
+			// clearBannedChannelsButton
+			// 
+			this.clearBannedChannelsButton.Enabled = false;
+			this.clearBannedChannelsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.clearBannedChannelsButton.Location = new System.Drawing.Point(226, 209);
+			this.clearBannedChannelsButton.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+			this.clearBannedChannelsButton.Name = "clearBannedChannelsButton";
+			this.clearBannedChannelsButton.Size = new System.Drawing.Size(22, 22);
+			this.clearBannedChannelsButton.TabIndex = 16;
+			this.clearBannedChannelsButton.Text = "X";
+			this.clearBannedChannelsButton.UseVisualStyleBackColor = true;
+			this.clearBannedChannelsButton.Click += new System.EventHandler(this.ClearBannedChannelsButton_Click);
+			// 
+			// bannedChannelsLabel
+			// 
+			bannedChannelsLabel.AutoSize = true;
+			bannedChannelsLabel.Location = new System.Drawing.Point(5, 195);
+			bannedChannelsLabel.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
+			bannedChannelsLabel.Name = "bannedChannelsLabel";
+			bannedChannelsLabel.Size = new System.Drawing.Size(86, 13);
+			bannedChannelsLabel.TabIndex = 15;
+			bannedChannelsLabel.Text = "Canals a ignorar:";
+			infoToolTip.SetToolTip(bannedChannelsLabel, "Nom del canal o canals a ignorar (separats per comes).");
+			// 
+			// bannedChannelsTextBox
+			// 
+			this.bannedChannelsTextBox.ForeColor = System.Drawing.Color.DarkGray;
+			this.bannedChannelsTextBox.Location = new System.Drawing.Point(5, 209);
+			this.bannedChannelsTextBox.Margin = new System.Windows.Forms.Padding(5, 2, 5, 5);
+			this.bannedChannelsTextBox.Name = "bannedChannelsTextBox";
+			this.bannedChannelsTextBox.Size = new System.Drawing.Size(216, 20);
+			this.bannedChannelsTextBox.TabIndex = 17;
+			infoToolTip.SetToolTip(this.bannedChannelsTextBox, "Nom del canal o canals a ignorar (separats per comes).");
+			this.bannedChannelsTextBox.TextChanged += new System.EventHandler(this.ConfigurationTextBox_TextChanged);
+			this.bannedChannelsTextBox.Enter += new System.EventHandler(this.ConfigurationTextBox_Enter);
+			this.bannedChannelsTextBox.Leave += new System.EventHandler(this.ConfigurationTextBox_Leave);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(279, 518);
+			this.ClientSize = new System.Drawing.Size(279, 557);
 			this.Controls.Add(this.creatorNameLinkLabel);
 			this.Controls.Add(madeBylabel);
 			this.Controls.Add(configLabel);
@@ -531,6 +575,8 @@
 		private System.Windows.Forms.Button clearUserButton;
 		private System.Windows.Forms.LinkLabel oAuthLinkLabel;
 		private System.Windows.Forms.LinkLabel creatorNameLinkLabel;
+		private System.Windows.Forms.Button clearBannedChannelsButton;
+		private System.Windows.Forms.TextBox bannedChannelsTextBox;
 	}
 }
 

@@ -34,8 +34,6 @@ namespace TwitchChatBot
                 {
                     messageTime = MainForm.stopwatch.Elapsed.TotalSeconds;
 
-                    Console.WriteLine(messagesCountFromLastSpam + " " + BotSettings.MinMessagesToSpam);
-
                     if (messagesCount <= 0 || (messagesCountFromLastSpam >= BotSettings.MinMessagesToSpam && (lastSpamMessageTime + (BotSettings.MinTimeToSpam * 60)) < messageTime))
                     {
                         lastSpamMessageTime = messageTime;

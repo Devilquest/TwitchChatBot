@@ -94,5 +94,17 @@ namespace TwitchChatBot.Properties {
                 this["minMessagesToSpam"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string bannedChannels {
+            get {
+                return ((string)(this["bannedChannels"]));
+            }
+            set {
+                this["bannedChannels"] = value;
+            }
+        }
     }
 }

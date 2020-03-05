@@ -72,6 +72,7 @@ namespace TwitchChatBot
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
             if (e.ChatMessage.Username == e.ChatMessage.Channel) return;
+            if (MainForm.BannedChannels.Contains(e.ChatMessage.Username.ToLower())) return;
 
             if (!chatUsersDict.ContainsKey(e.ChatMessage.UserId))
             {

@@ -1,7 +1,12 @@
-﻿namespace TwitchChatBot
+﻿using System.Collections.Generic;
+
+namespace TwitchChatBot
 {
 	public static class BotSettings
 	{
+		//Ban List
+		//public static List<string> BanedChannels { get; } = new List<string>() { "streamlabs" };
+
 		//Missatges de Xat
 		public static string HelloWord { get; } = "Hola";
 		public static string[] Elogis { get; } = new string[] { "Brutal", "Genial", "Súper Guai", "Espectacular", "Bestial" };
@@ -23,5 +28,6 @@
 		public static string TwithcUserTextBoxPlaceholder { get; } = "Nom d'usuari";
 		public static string OAuthTextBoxPlaceholder { get; } = "OAuth Token";
 		public static string SpreadsheetIdPlaceholder { get; } = "Canals o Spreadsheet ID";
+		public static string BannedChannelsPlaceholder { get; } = "Canals a ignorar";
 	}
 }

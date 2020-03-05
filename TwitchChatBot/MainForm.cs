@@ -13,6 +13,7 @@ namespace TwitchChatBot
 	{
 		public static Stopwatch stopwatch;
 		public static List<string> StreamersListNames { get; } = new List<string>();
+		public static List<string> BannedChannels { get; } = new List<string>();
 
 		private ChatBot chatBot;
 
@@ -85,6 +86,14 @@ namespace TwitchChatBot
 			}
 			else
 				spreadsheetIdTextBox.Text = BotSettings.SpreadsheetIdPlaceholder;
+
+			if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.bannedChannels))
+			{
+				bannedChannelsTextBox.Text = Properties.Settings.Default.bannedChannels;
+				clearBannedChannelsButton.Enabled = true;
+			}
+			else
+				bannedChannelsTextBox.Text = BotSettings.BannedChannelsPlaceholder;
 		}
 
 		/// <summary>
@@ -156,6 +165,7 @@ namespace TwitchChatBot
 		private void ConnectDisconnectButton_Click(object sender, EventArgs e)
 		{
 			StreamersListNames.Clear();
+			BannedChannels.Clear();
 
 			if (!BotConnected)
 			{
@@ -202,7 +212,26 @@ namespace TwitchChatBot
 					Properties.Settings.Default.userName = twithcUserTextBox.Text.Trim();
 					Properties.Settings.Default.oAuthToken = oAuthTextBox.Text.Trim();
 					Properties.Settings.Default.spreadSheetID = spreadsheetIdTextBox.Text.Trim();
+					Properties.Settings.Default.bannedChannels = bannedChannelsTextBox.Text.Trim();
 					Properties.Settings.Default.Save();
+
+					if (!string.IsNullOrWhiteSpace(bannedChannelsTextBox.Text) && bannedChannelsTextBox.Text != BotSettings.BannedChannelsPlaceholder)
+					{
+						if (Properties.Settings.Default.bannedChannels.Contains(','))
+						{
+							string[] bannedUsers = Properties.Settings.Default.bannedChannels.ToLower().Split(',');
+
+							foreach (string user in bannedUsers)
+							{
+								if (!string.IsNullOrWhiteSpace(user))
+									BannedChannels.Add(user.Trim());
+							}
+						}
+						else
+						{
+							BannedChannels.Add(Properties.Settings.Default.bannedChannels.ToLower());
+						}
+					}
 
 					if (string.IsNullOrWhiteSpace(spreadsheetIdTextBox.Text) || spreadsheetIdTextBox.Text == BotSettings.SpreadsheetIdPlaceholder)
 					{
@@ -282,6 +311,15 @@ namespace TwitchChatBot
 			spreadsheetIdTextBox.Text = string.Empty;
 		}
 
+		private void ClearBannedChannelsButton_Click(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.bannedChannels = string.Empty;
+			Properties.Settings.Default.Save();
+
+			clearBannedChannelsButton.Enabled = false;
+			bannedChannelsTextBox.Text = string.Empty;
+		}
+
 		private void OAuthLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			Process.Start(BotSettings.OAuthUrl);
@@ -293,7 +331,7 @@ namespace TwitchChatBot
 		}
 		#endregion
 
-		#region TextBoxEvents
+		#region CheckBox
 		private void SayHelloCheckBox_CheckedChanged(object sender, EventArgs e)
 		{
 			if (sayHelloCheckBox.Checked)
@@ -338,7 +376,9 @@ namespace TwitchChatBot
 				minMessagesToSpamNumericUpDown.Enabled = false;
 			}
 		}
+		#endregion
 
+		#region TextBoxEvents
 		private void ConfigurationTextBox_TextChanged(object sender, EventArgs e)
 		{
 			TextBox box = (TextBox)sender;
@@ -375,6 +415,13 @@ namespace TwitchChatBot
 							box.ForeColor = Color.Black;
 						}
 						break;
+					case "bannedChannelsTextBox":
+						if (bannedChannelsTextBox.Text != BotSettings.BannedChannelsPlaceholder)
+						{
+							clearBannedChannelsButton.Enabled = true;
+							box.ForeColor = Color.Black;
+						}
+						break;
 				}
 			}
 		}
@@ -398,6 +445,10 @@ namespace TwitchChatBot
 					break;
 				case "spreadsheetIdTextBox":
 					if (spreadsheetIdTextBox.Text == BotSettings.SpreadsheetIdPlaceholder)
+						box.Text = string.Empty;
+					break;
+				case "bannedChannelsTextBox":
+					if (bannedChannelsTextBox.Text == BotSettings.BannedChannelsPlaceholder)
 						box.Text = string.Empty;
 					break;
 			}
@@ -424,6 +475,9 @@ namespace TwitchChatBot
 						break;
 					case "spreadsheetIdTextBox":
 						box.Text = BotSettings.SpreadsheetIdPlaceholder;
+						break;
+					case "bannedChannelsTextBox":
+						box.Text = BotSettings.BannedChannelsPlaceholder;
 						break;
 				}
 				box.ForeColor = Color.DarkGray;
@@ -492,8 +546,7 @@ namespace TwitchChatBot
 			userSettingsPanel.Enabled = enabled;
 		}
 
+
 		#endregion
-
-
 	}
 }
