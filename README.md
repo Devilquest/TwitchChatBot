@@ -1,6 +1,7 @@
 
 # Twitch Chat Bot
-### Bot per saludar i/o promocionar canals al xat de Twitch.
+**Bot per saludar i/o promocionar canals al xat de Twitch.**
+
 El “Bot” saludarà i/o promocionarà els canals desitjats pel xat de twitch cada cop (o segons la configuració) que un usuari parli pel xat.
 
 ## Configuració
@@ -24,3 +25,22 @@ Es poden canviar les opcions següents:
 
 ## Altres
 La paraula de salutació i els elogis aleatoris es poden canviar al fitxer `BotSettings.cs` a les variables `HelloWord` i `Elogis`. En cas de canvi caldrà tornar a compilar el programa perquè els canvis tingui efecte.
+
+<br>
+
+------------
+## :heart:Donacions
+**Les donacions sempre són molt apreciades. Gràcies pel teu suport!**
+
+[![Bitcoin Badge](https://img.shields.io/badge/Bitcoin-89520e?style=flat&logo=bitcoin&logoColor=white)](#heartdonations)
+[![Ethereum Badge](https://img.shields.io/badge/Ethereum-3C3C3D?style=flat&logo=ethereum&logoColor=white)](#heartdonations)
+[![Dogecoin Badge](https://img.shields.io/badge/Dogecoin-C2A633?style=flat&logo=dogecoin&logoColor=white)](#heartdonations)
+[![Litecoin Badge](https://img.shields.io/badge/Litecoin-A6A9AA?style=flat&logo=litecoin&logoColor=white)](#heartdonations)
+
+**BTC:** 1M5yLyLWmELQo2e6chBZ35RkhcTUon66u5
+
+**ETH:** 0xa6d337a733cbce6aa2f0aa72f83beced3464ee86
+
+**DOGE:** DNm19soXsPHHSpqsMUiy75kciw9sBrqeZ8
+
+**LTC:** MKiegbfCssBEJdtNm3tGcnAhBF2xvcQ6d1
